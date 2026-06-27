@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68.0", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "productivity-manager"
+version = "0.1.0"
+description = "Automated Desktop Productivity Manager: activity tracking, categorization, focus sessions, app blocking, and an analytics dashboard."
+requires-python = ">=3.10"
+dependencies = ["flask>=3.0"]
+
+[project.scripts]
+productivity = "productivity.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["productivity*"]
+
+[tool.setuptools.package-data]
+productivity = ["web/templates/*.html", "web/static/*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 88
+target-version = "py310"
+
+[tool.ruff.lint]
+select = ["E", "F", "W", "I"]
