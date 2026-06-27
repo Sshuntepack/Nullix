@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Productivity Manager</title>
+    <link
+      rel="stylesheet"
+      href="{{ url_for('static', filename='style.css') }}"
+    />
+    <script
+      src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"
+      defer
+    ></script>
+    <script
+      src="{{ url_for('static', filename='app.js') }}"
+      defer
+    ></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="logo" aria-hidden="true"></span>
+        <div>
+          <h1>Productivity Manager</h1>
+          <p class="muted" id="generated-at">Loading&hellip;</p>
+        </div>
+      </div>
+      <nav class="ranges" role="tablist" aria-label="Time range">
+        <button class="range" data-range="today" aria-selected="true">
+          Today
+        </button>
+        <button class="range" data-range="week">Week</button>
+        <button class="range" data-range="month">Month</button>
+      </nav>
+    </header>
+
+    <main class="grid">
+      <section class="card score-card">
+        <p class="card-label">Productivity Score</p>
+        <div class="score-ring">
+          <svg viewBox="0 0 120 120" aria-hidden="true">
+            <circle class="ring-bg" cx="60" cy="60" r="52" />
+            <circle class="ring-fg" cx="60" cy="60" r="52" id="score-ring" />
+          </svg>
+          <div class="score-value"><span id="score">0</span><small>%</small></div>
+        </div>
+        <p class="muted" id="total-time">0m tracked</p>
+      </section>
+
+      <section class="card focus-card">
+        <p class="card-label">Focus Session</p>
+        <div class="timer" id="timer">--:--</div>
+        <p class="muted" id="focus-state">No active session</p>
+        <div class="focus-controls">
+          <button class="btn primary" id="start-focus">Start 25m Focus</button>
+          <button class="btn" id="start-break">5m Break</button>
+          <button class="btn ghost" id="stop-focus" disabled>Stop</button>
+        </div>
+        <p class="muted small" id="blocklist-note"></p>
+      </section>
+
+      <section class="card stat-card" id="stat-productive">
+        <p class="card-label">Productive</p>
+        <p class="stat-value" data-stat="productive">0m</p>
+      </section>
+      <section class="card stat-card" id="stat-distracting">
+        <p class="card-label">Distracting</p>
+        <p class="stat-value" data-stat="distracting">0m</p>
+      </section>
+
+      <section class="card chart-card">
+        <p class="card-label">Category breakdown</p>
+        <canvas id="category-chart" height="220"></canvas>
+      </section>
+
+      <section class="card chart-card">
+        <p class="card-label">Top applications</p>
+        <canvas id="apps-chart" height="220"></canvas>
+      </section>
+
+      <section class="card chart-card wide">
+        <p class="card-label">Activity by hour</p>
+        <canvas id="hourly-chart" height="120"></canvas>
+      </section>
+
+      <section class="card list-card">
+        <p class="card-label">Projects</p>
+        <ul class="project-list" id="project-list"></ul>
+      </section>
+    </main>
+    <footer class="foot muted">
+      Automated Desktop Productivity Manager &middot; data refreshes every 5s
+    </footer>
+  </body>
+</html>
